@@ -16,7 +16,7 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio — Your Name",
+  title: "Portfolio — Tia Ghaly",
   description: "Designer, Developer & Creator based in New York.",
 };
 
