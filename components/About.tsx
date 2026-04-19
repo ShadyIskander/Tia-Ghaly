@@ -186,7 +186,7 @@ export default function About({ open, onClose }: Props) {
                     }} />
                   ))}
                 </div>
-                <p style={{ fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>Toddlers enjoy arts and crafts; I enjoy arts and camps.</p>
+                <p style={{ fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>While toddlers enjoy arts and crafts; I enjoy arts and camps.</p>
               </div>
 
               {/* Polaroid 2 — video */}
@@ -219,7 +219,7 @@ export default function About({ open, onClose }: Props) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={campPhotos[campIndex]} alt="Camp moments" style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", display: "block", transition: "opacity 0.25s ease", background: "#efefef" }} />
                 </div>
-                <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>Toddlers enjoy arts and crafts; I enjoy arts and camps.</p>
+                <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}> While toddlers enjoy arts and crafts; I enjoy arts and camps.</p>
               </div>
               <div style={{ position: "absolute", top: "62px", left: "42%", background: "#fff", padding: "0.9rem 0.9rem 2.6rem", boxShadow: "0 8px 26px rgba(0,0,0,0.12)", transform: "rotate(2.5deg)", width: "54%", zIndex: 3 }}>
                 <div style={{ width: "100%", aspectRatio: "4/3", background: "#dfe7e4", overflow: "hidden" }}>
