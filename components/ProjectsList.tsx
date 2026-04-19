@@ -82,6 +82,26 @@ export default function ProjectsList() {
     if (openIdx !== null) setModalImgIdx(0);
   }, [openIdx]);
 
+  // Auto-advance carousel on mobile every 3 seconds; resets on manual tap
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const resetAutoPlay = useCallback((images: string[]) => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      setModalImgIdx(i => (i + 1) % images.length);
+    }, 3000);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || openIdx === null) {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      return;
+    }
+    const images = projects[openIdx].images;
+    resetAutoPlay(images);
+    return () => { if (autoPlayRef.current) clearInterval(autoPlayRef.current); };
+  }, [isMobile, openIdx, resetAutoPlay]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setOpenIdx(null); };
     window.addEventListener("keydown", handler);
@@ -285,7 +305,7 @@ export default function ProjectsList() {
                   {/* Prev / Next */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.75rem" }}>
                     <button
-                      onClick={() => setModalImgIdx(i => Math.max(0, i - 1))}
+                      onClick={() => { setModalImgIdx(i => Math.max(0, i - 1)); resetAutoPlay(openProject.images); }}
                       disabled={modalImgIdx === 0}
                       style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", opacity: modalImgIdx === 0 ? 0.3 : 1, color: "var(--fg)" }}
                     >‹</button>
@@ -293,7 +313,7 @@ export default function ProjectsList() {
                       {modalImgIdx + 1} / {openProject.images.length}
                     </span>
                     <button
-                      onClick={() => setModalImgIdx(i => Math.min(openProject.images.length - 1, i + 1))}
+                      onClick={() => { setModalImgIdx(i => Math.min(openProject.images.length - 1, i + 1)); resetAutoPlay(openProject.images); }}
                       disabled={modalImgIdx === openProject.images.length - 1}
                       style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", opacity: modalImgIdx === openProject.images.length - 1 ? 0.3 : 1, color: "var(--fg)" }}
                     >›</button>
