@@ -214,6 +214,8 @@ export default function About({ open, onClose }: Props) {
           ) : (
             /* Desktop polaroids */
             <div style={{ position: "relative", minHeight: "660px" }}>
+
+              {/* Polaroid 1 — camp photo (bottom-left, z:2) */}
               <div style={{ position: "absolute", top: "12px", left: "3%", background: "#fff", padding: "0.9rem 0.9rem 3.1rem", boxShadow: "0 8px 26px rgba(0,0,0,0.13)", transform: "rotate(-2.5deg)", width: "45%", zIndex: 2 }}>
                 <div style={{ width: "100%", aspectRatio: "3/4", background: "#efefef", overflow: "hidden" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -221,19 +223,24 @@ export default function About({ open, onClose }: Props) {
                 </div>
                 <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>While toddlers enjoy arts and crafts; I enjoy arts and camps.</p>
               </div>
-              <div style={{ position: "absolute", top: "110px", left: "48%", background: "#fff", padding: "0.9rem 0.9rem 2.6rem", boxShadow: "0 8px 26px rgba(0,0,0,0.12)", transform: "rotate(2.5deg)", width: "54%", zIndex: 3 }}>
-                <div style={{ width: "100%", aspectRatio: "4/3", background: "#dfe7e4", overflow: "hidden" }}>
-                  <video key={currentVideo} src={currentVideo} autoPlay muted playsInline preload="metadata" onEnded={() => setVideoIndex((prev) => (prev + 1) % CAMP_VIDEOS.length)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                </div>
-                <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>Precious shooting moments!</p>
-              </div>
-              <div style={{ position: "absolute", top: "344px", left: "19%", background: "#fff", padding: "0.9rem 0.9rem 3rem", boxShadow: "0 8px 26px rgba(0,0,0,0.12)", transform: "rotate(-1deg)", width: "46%", zIndex: 4 }}>
+
+              {/* Polaroid 3 — on set (middle, z:3) — rendered before video so video stacks on top */}
+              <div style={{ position: "absolute", top: "344px", left: "19%", background: "#fff", padding: "0.9rem 0.9rem 3rem", boxShadow: "0 8px 26px rgba(0,0,0,0.12)", transform: "rotate(-1deg)", width: "46%", zIndex: 3 }}>
                 <div style={{ width: "100%", aspectRatio: "3/4", background: "#ede8dd", overflow: "hidden" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/about-camps/on-set.png" alt="Tia on set" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
                 </div>
                 <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>This is me on set enjoying life!!</p>
               </div>
+
+              {/* Polaroid 2 — video (top-right, z:4, nudged down to overlap bottom polaroid) */}
+              <div style={{ position: "absolute", top: "160px", left: "48%", background: "#fff", padding: "0.9rem 0.9rem 2.6rem", boxShadow: "0 8px 26px rgba(0,0,0,0.12)", transform: "rotate(2.5deg)", width: "54%", zIndex: 4 }}>
+                <div style={{ width: "100%", aspectRatio: "4/3", background: "#dfe7e4", overflow: "hidden" }}>
+                  <video key={currentVideo} src={currentVideo} autoPlay muted playsInline preload="metadata" onEnded={() => setVideoIndex((prev) => (prev + 1) % CAMP_VIDEOS.length)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+                <p style={{ marginTop: "0.6rem", fontFamily: "Georgia, serif", fontSize: "0.75rem", color: "#444", textAlign: "center", lineHeight: 1.4 }}>Precious shooting moments!</p>
+              </div>
+
             </div>
           )}
         </div>
