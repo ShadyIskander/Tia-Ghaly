@@ -300,6 +300,7 @@ export default function About({ open, onClose }: Props) {
                 { title: "Class Student Representative", detail: "Coventry University — Sept 2022–Oct 2024", sub: "Advocated for student needs with department head" },
                 { title: "Scouts' Coach", detail: "Wadi Sport Camp, Egypt — 2019–Present", sub: "Guided teenagers through experiential activities" },
                 { title: "Educational Interventions", detail: "Egyptian Ministry of Education × Discovery Channel — 2018", sub: "Actress for multimedia science curriculum; presented to President El-Sisi" },
+                { title: "Internship", detail:"Big Buzz Network — Summer 2025 ", sub: "One-month internship in copywriting and creative development, including concept creation, client meetings, and campaign brainstorming" },
               ].map((item, i) => (
                 <li key={i} style={{ fontSize: "0.865rem", color: "var(--fg)", lineHeight: 1.65 }}>
                   <span style={{ fontWeight: 700 }}>{item.title}</span><br />
