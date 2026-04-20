@@ -312,7 +312,9 @@ export default function About({ open, onClose }: Props) {
 
           {/* Column 3 */}
           <div>
-            <h2 style={{ fontFamily: "var(--font-oswald), sans-serif", fontSize: "1.5rem", fontWeight: 700, marginBottom: "1.2rem", color: "var(--fg)" }}>Choose how you get to know me</h2>
+            <h2 style={{ fontFamily: "var(--font-oswald), sans-serif", fontSize: "1.5rem", fontWeight: 700, marginBottom: "1.2rem", color: "var(--fg)" }}>
+  Choose how you get to<br />know me
+</h2>
             {ACCORDION_ITEMS.map(({ key, label }) => (
               <div key={key} style={{ borderBottom: "1px solid var(--border)" }}>
                 <button
