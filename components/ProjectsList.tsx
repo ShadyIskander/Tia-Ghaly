@@ -200,6 +200,7 @@ export default function ProjectsList() {
                     }}>
                       Curious?
                       <br />
+                      <br />
                       Tap a project
                     </div>
                   )}
