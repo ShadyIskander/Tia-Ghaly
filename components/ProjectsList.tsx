@@ -198,7 +198,9 @@ export default function ProjectsList() {
                       marginTop:     isMobile ? "0.75rem" : "1.5rem",
                       textAlign:     "center",
                     }}>
-                      Curious? Tap a project
+                      Curious?
+                      <br />
+                      Tap a project
                     </div>
                   )}
                 </li>
