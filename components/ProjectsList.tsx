@@ -77,12 +77,10 @@ export default function ProjectsList() {
     return () => { document.body.style.overflow = ""; };
   }, [openIdx]);
 
-  // Reset modal image index when opening a project
   useEffect(() => {
     if (openIdx !== null) setModalImgIdx(0);
   }, [openIdx]);
 
-  // Auto-advance carousel on mobile every 3 seconds; resets on manual tap
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const resetAutoPlay = useCallback((images: string[]) => {
@@ -144,6 +142,11 @@ export default function ProjectsList() {
 
   return (
     <>
+      <style>{`
+        @keyframes modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modal-in { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+      `}</style>
+
       <section
         ref={sectionRef}
         id="projects-list"
@@ -155,31 +158,52 @@ export default function ProjectsList() {
             Projects
           </p>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {projects.map((p, i) => (
-              <li
-                key={i}
-                onMouseEnter={() => { setHoveredIdx(i); setActiveImg(i); }}
-                onMouseLeave={() => setHoveredIdx(null)}
-                onClick={() => setOpenIdx(i)}
-                style={{
-                  fontFamily:    "var(--font-oswald), sans-serif",
-                  fontSize:      isMobile ? "clamp(2.2rem, 12vw, 3.5rem)" : "clamp(3rem, 6.5vw, 6rem)",
-                  fontWeight:    900,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.02em",
-                  lineHeight:    1.05,
-                  textAlign:     "center",
-                  color:         hoveredIdx === null || hoveredIdx === i
-                                   ? (themeLabel === "Blush" ? "var(--fg)" : "#ffffff")
-                                   : (themeLabel === "Blush" ? "var(--muted)" : "rgba(255,255,255,0.35)"),
-                  cursor:        "pointer",
-                  transition:    "color 0.25s ease",
-                  padding:       "0.1rem 0",
-                }}
-              >
-                {p.title}
-              </li>
-            ))}
+            {projects.map((p, i) => {
+              const isLast = i === projects.length - 1;
+
+              return (
+                <li
+                  key={i}
+                  onMouseEnter={() => { if (!isMobile) { setHoveredIdx(i); setActiveImg(i); } }}
+                  onMouseLeave={() => { if (!isMobile) setHoveredIdx(null); }}
+                  onClick={() => setOpenIdx(i)}
+                  style={{
+                    fontFamily:    "var(--font-oswald), sans-serif",
+                    fontSize:      isMobile ? "clamp(2.2rem, 12vw, 3.5rem)" : "clamp(3rem, 6.5vw, 6rem)",
+                    fontWeight:    900,
+                    textTransform: "uppercase",
+                    letterSpacing: "-0.02em",
+                    lineHeight:    1.05,
+                    textAlign:     "center",
+                    color:         hoveredIdx === null || hoveredIdx === i
+                                     ? (themeLabel === "Blush" ? "var(--fg)" : "#ffffff")
+                                     : (themeLabel === "Blush" ? "var(--muted)" : "rgba(255,255,255,0.35)"),
+                    cursor:        "pointer",
+                    transition:    "color 0.25s ease",
+                    padding:       isMobile ? "0.5rem 0" : "0.1rem 0",
+                    position:      "relative",
+                    whiteSpace:    "nowrap", /* Ensures "Inside Outside" stays on one line */
+                  }}
+                >
+                  {p.title}
+
+                  {isLast && (
+                    <div style={{
+                      fontFamily:    "sans-serif", /* Override Oswald to match Projects label */
+                      fontSize:      "0.7rem",
+                      fontWeight:    700,
+                      letterSpacing: "0.3em",
+                      textTransform: "uppercase",
+                      color:         accentColor,
+                      marginTop:     isMobile ? "0.75rem" : "1.5rem",
+                      textAlign:     "center",
+                    }}>
+                      click to view
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -320,13 +344,13 @@ export default function ProjectsList() {
                   </div>
                   {/* Dots */}
                   <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "0.5rem" }}>
-                    {openProject.images.map((_, i) => (
+                    {openProject.images.map((_, idx) => (
                       <button
-                        key={i}
-                        onClick={() => setModalImgIdx(i)}
+                        key={idx}
+                        onClick={() => setModalImgIdx(idx)}
                         style={{
                           width: "6px", height: "6px", borderRadius: "50%", border: "none", padding: 0, cursor: "pointer",
-                          background: i === modalImgIdx ? "var(--fg)" : "var(--muted)", opacity: i === modalImgIdx ? 1 : 0.4,
+                          background: idx === modalImgIdx ? "var(--fg)" : "var(--muted)", opacity: idx === modalImgIdx ? 1 : 0.4,
                         }}
                       />
                     ))}
@@ -348,11 +372,6 @@ export default function ProjectsList() {
           </div>
         </div>
       , document.body)}
-
-      <style>{`
-        @keyframes modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes modal-in { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-      `}</style>
     </>
   );
 }
