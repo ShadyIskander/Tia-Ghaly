@@ -38,6 +38,13 @@ const projects: Project[] = [
     img:         "/corona.png",
     images:      ["/package-corona-1.png", "/package-corona-2.png", "/package-corona-3.png", "/package-corona-4.png", "/package-corona-5.png", "/package-corona-6.png"],
   },
+  {
+    title:       "Welcome Abroad",
+    description: "A lettering and pattern project for Terminal 6, TKH's Annual Design Showcase — where six hand-drawn icons became a thread running through everything.",
+    postDescription: "I was responsible for the lettering and iconography across the six design majors. Each major got one icon — something small, drawn from the essence of that discipline. I then let each one repeat, rotate, and layer until it became a pattern, and those patterns showed up everywhere — in the signage, the print, the space itself. A thread running through all of it. It all started with the 'Welcome Abroad' sign at the university entrance — the first thing you see when you arrive. That greeting became the concept. Step inside, and the whole show unfolds like an airport: you land, you navigate, and you travel through six destinations — each one a different major, each one its own world.",
+    img:         "/Welcome Abroad-35.png",
+    images:      ["/Welcome Abroad-34.png", "/Welcome Abroad-33.png", "/Welcome Abroad-35.png", "/Welcome Abroad-36.png"],
+  },
 ];
 
 export default function ProjectsList() {
@@ -133,7 +140,8 @@ export default function ProjectsList() {
   useEffect(() => () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); }, []);
 
   const openProject = projects[openIdx ?? 0];
-  const isStephansonProject = openProject.title === "Stephanson";
+  const isStephansonProject    = openProject.title === "Stephanson";
+  const isWelcomeAbroadProject = openProject.title === "Welcome Abroad";
 
   const accentColor = themeLabel === "Yellow" ? "#f8b868"
                     : themeLabel === "Coral"  ? "#f8b090"
@@ -180,22 +188,22 @@ export default function ProjectsList() {
                                      : (themeLabel === "Blush" ? "var(--muted)" : "rgba(255,255,255,0.35)"),
                     cursor:        "pointer",
                     transition:    "color 0.25s ease",
-                    padding:       isMobile ? "0.5rem 0" : "0.1rem 0",
+                    padding: isMobile ? "0.5rem 0" : "0.1rem 0",
                     position:      "relative",
-                    whiteSpace:    "nowrap", /* Ensures "Inside Outside" stays on one line */
+                    whiteSpace:    "nowrap",
                   }}
                 >
                   {p.title}
 
                   {isLast && (
                     <div style={{
-                      fontFamily:    "sans-serif", /* Override Oswald to match Projects label */
+                      fontFamily:    "sans-serif",
                       fontSize:      "0.7rem",
                       fontWeight:    700,
                       letterSpacing: "0.3em",
                       textTransform: "uppercase",
                       color:         accentColor,
-                      marginTop:     isMobile ? "0.75rem" : "1.5rem",
+                      marginTop:     isMobile ? "1.5rem" : "3rem",
                       textAlign:     "center",
                     }}>
                       Curious?
@@ -306,8 +314,18 @@ export default function ProjectsList() {
                   margin: "0 auto",
                 }}>
                   {openProject.images.map((src, j) => {
-                    const colSpan = isStephansonProject ? (j === 0 ? 4 : 2) : (j < 2 ? 2 : 1);
-                    const aspectRatio = isStephansonProject ? (j === 0 ? "2 / 3" : "1 / 1") : "1 / 1";
+                    const colSpan = isStephansonProject
+                      ? (j === 0 ? 4 : 2)
+                      : isWelcomeAbroadProject
+                      ? 2
+                      : (j < 2 ? 2 : 1);
+
+                    const aspectRatio = isStephansonProject
+                      ? (j === 0 ? "2 / 3" : "1 / 1")
+                      : isWelcomeAbroadProject
+                      ? "3 / 4"
+                      : "1 / 1";
+
                     return (
                       <div key={j} style={{ gridColumn: `span ${colSpan}`, borderRadius: "16px", overflow: "hidden", aspectRatio, background: "#e8e2d9" }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
